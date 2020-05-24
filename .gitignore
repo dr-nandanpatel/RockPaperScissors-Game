@@ -1,3 +1,4 @@
 # Project exclude paths
 /venv/
 /level5RPS.py
+/rating.txt
