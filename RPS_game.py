@@ -12,7 +12,7 @@ class RPSGame:
         print("Hello, " + user_name)
 
     def greeting(self):
-        if os.path.isfile('rating.txt') == False:
+        if not os.path.isfile('rating.txt'):  # Checks if the database file exists and if not the creates one in same directory!
             create_file = open('rating.txt', 'w+')
             create_file.close()
 
@@ -20,18 +20,18 @@ class RPSGame:
         user_list = open_file_read.readlines()
         open_file_read.close()
         user_dict = {}
-        for i in range(len(user_list)):
+        for i in range(len(user_list)):  # logic of reading score from a user profile.
             user_list[i] = user_list[i].replace('\n', '')
         for user in user_list:
             user = user.split(' ')
             name = user[0]
             score = user[1]
             user_dict[name] = score
-        if self.username in user_dict:
+        if self.username in user_dict:  # Checks for user's previous record and starts off the game from there!
             print("Your previous profile score is " + user_dict[self.username])
             print("Play along and we'll keep adding your winning points to your profile!!")
             self.game_score = int(user_dict[self.username])
-        else:
+        else:  # Creates a new profile for new user
             open_file_append = open("rating.txt", 'a')
             open_file_append.write(self.username + " " + "0\n")
             open_file_append.close()
@@ -40,7 +40,7 @@ class RPSGame:
             self.game_score = 0
         return
 
-    def score_reading(self):
+    def score_reading(self):  # reads score on request when user chooses '!score'
         open_file_read = open('rating.txt', 'r')
         user_list = open_file_read.readlines()
         open_file_read.close()
@@ -58,7 +58,7 @@ class RPSGame:
                 break
         return
 
-    def score_writing(self):
+    def score_writing(self):  # updates score for the user after every round in the database
         open_file_read = open('rating.txt', 'r')
         user_list = open_file_read.readlines()
         open_file_read.close()
@@ -78,7 +78,7 @@ class RPSGame:
         open_file_write.close()
         return
 
-    def game(self):
+    def game(self):  # logic of game where the computer chooses its choice and is compared to the user's choice
         while True:
             self.user_input = input("Enter choice:")
             self.choices = ['rock', 'paper', 'scissors']

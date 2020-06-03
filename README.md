@@ -2,4 +2,10 @@ Interesting and yet very simple Rock, Paper, Scissors Game that maintains a play
 
 Just run the RPS_game.py file, it creates a 'rating.txt' file in your working directory and that's it! Start playing!
 
+Choices: 'rock', 'paper', 'scissors', '!score', '!exit'
+
+'!score' - displays score
+
+'!exit' - exits the game
+
 <b> Have Fun! </b>
