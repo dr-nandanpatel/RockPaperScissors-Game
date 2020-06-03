@@ -1,6 +1,7 @@
 from random import choice
 import os.path
 
+
 class RPSGame:
     computer_input = ''
     user_input = ''
@@ -9,7 +10,7 @@ class RPSGame:
     def __init__(self, user_name):
         self.username = user_name
         print("Hello, " + user_name)
-        
+
     def greeting(self):
         if os.path.isfile('rating.txt') == False:
             create_file = open('rating.txt', 'w+')
@@ -51,15 +52,29 @@ class RPSGame:
             name = user[0]
             score = user[1]
             user_dict[name] = score
-        for self.username in user_dict:
-            print("Your score: " + user_dict[self.username])
-            self.game_score = int(user_dict[self.username])
-            break
+            if self.username in user_dict:
+                print("Your score: " + user_dict[self.username])
+                self.game_score = int(user_dict[self.username])
+                break
         return
 
     def score_writing(self):
-        open_file_write = open('rating.txt', 'w')
-        open_file_write.write('{0} {1}\n'.format(str(self.username), str(self.game_score)))
+        open_file_read = open('rating.txt', 'r')
+        user_list = open_file_read.readlines()
+        open_file_read.close()
+        user_list_new = []
+        open_file_write = open('rating.txt', 'w+')
+        for i in range(len(user_list)):
+            user_list[i] = user_list[i].replace('\n', '')
+        for user in user_list:
+            user = user.split(' ')
+            name = user[0]
+            score = user[1]
+            if name == self.username:
+                score = self.game_score
+            user_score_updated = str(name) + ' ' + str(score) + '\n'
+            user_list_new.append(str(user_score_updated))
+        open_file_write.writelines(user_list_new)
         open_file_write.close()
         return
 
